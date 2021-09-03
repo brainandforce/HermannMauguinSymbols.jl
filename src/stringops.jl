@@ -55,5 +55,4 @@ function _paren_intstring(x::Integer)
     s = string(x)
     length(s) == 1 || length(s) == 2 && s[1] == '-' && return s
     return '(' * s * ')'
-    
 end

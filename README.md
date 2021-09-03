@@ -48,10 +48,14 @@ Short form:     P2₁/c
 
 ```
 
-# Known issues
+## Known issues
 
 Currently, 2-dimensional space group are not handled correctly at all.
 
 Sometimes, Hermann-Mauguin symbols contain extra information about the origin
 setting of the unit cell (for instance: F d -3 m Z). This information breaks
 the constructor.
+
+Short forms of Hermann-Mauguin symbols are not supported when calling the 
+`Hermann-Mauguin{N}` constructor. This may be added in the future, but is a low
+priority addition.

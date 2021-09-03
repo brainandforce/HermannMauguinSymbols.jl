@@ -74,7 +74,7 @@ axis_orders(hm::HermannMauguin{N}) where N = order.(hm.axes)
 function _string_long(hm::HermannMauguin{3})
     axis_strings = string.(hm.axes)
     # Strip extraneous rotations if not monoclinic or trigonal
-    if ispointgroup(hm) || axis_orders(hm)[1] != 3 && axis_orders(hm) in ((1,2), (2,1))
+    if hm.centering != 'P' && axis_orders(hm) in ((3,1,2), (3,2,1))
         axis_strings = filter(!isequal("1"), axis_strings)
     end
     # Fix for P 1
@@ -96,7 +96,7 @@ function _string_short(hm::HermannMauguin{3})
         axis_strings = string.(filter(!isequal(Axis(1)), [hm.axes...]))
     end
     # Convert the axis strings to their short forms (remove rotaions/screws)
-    if length(axis_strings) == 3
+    if length(axis_strings) > 1
         axes = join([isletter(last(s)) ? string(last(s)) : s for s in axis_strings])
         # If the group isn't high symmetry but has a high order even rotation axis,
         # append the slash notation for the rotation if it's not there already

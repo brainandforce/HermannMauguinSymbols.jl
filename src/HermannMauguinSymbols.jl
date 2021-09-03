@@ -12,7 +12,7 @@ const CENTERINGS =
 (
     ('p'),
     ('c','p'),
-    ('\x00', 'A':'C'..., 'F', 'H', 'I', 'P'),
+    ('\x00', 'A':'C'..., 'F', 'H', 'I', 'P', 'R'),
 )
 
 # Offset between subscripts and regular numbers

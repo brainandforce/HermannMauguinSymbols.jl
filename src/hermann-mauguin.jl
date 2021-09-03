@@ -117,7 +117,7 @@ function Base.display(hm::HermannMauguin{3})
     tp = "point"^ispointgroup(hm) * "space"^isspacegroup(hm)
     disp = 
     [
-        "Hermann-Mauguin symbol for a 3-dimensional $tp group",
+        "Hermann-Mauguin symbol for a 3-dimensional $tp group:",
         "Long form:\t"  * _string_long(hm),
         "Short form:\t" * _string_short(hm)
     ]

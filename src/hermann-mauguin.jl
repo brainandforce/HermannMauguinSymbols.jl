@@ -12,6 +12,8 @@ struct HermannMauguin{N}
     # Axes of the HM symbol
     axes::NTuple{N,Axis}
     function HermannMauguin{N}(ctr::AbstractChar, ax::NTuple{N,Axis}) where N
+        ctr != '\x00' && @assert all(x -> x in (1, 2, 3, 4, 6), order.(ax)) "Order of rotations" *
+            "must be 1, 2, 3, 4, or 6 in space groups."
         ctr = uppercase(ctr)
         @assert ctr in CENTERINGS[N] "Invalid centering type: $ctr"
         return new{N}(ctr, ax)

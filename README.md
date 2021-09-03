@@ -34,6 +34,18 @@ julia> HermannMauguin{3}(141)
 Hermann-Mauguin symbol for a 3-dimensional space group
 Long form:      I 4₁/a 2/m 2/d
 Short form:     I4₁/amd
+
+```
+
+A string macro also exists to generate 2-dimensional and 3-dimensional 
+Hermann-Mauguin symbols:
+
+```julia
+julia> @HM3"P 1 2_1/c 1"
+Hermann-Mauguin symbol for a 3-dimensional space group
+Long form:      P 1 2₁/c 1
+Short form:     P2₁/c
+
 ```
 
 # Known issues

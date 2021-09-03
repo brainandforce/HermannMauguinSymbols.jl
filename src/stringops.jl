@@ -45,3 +45,15 @@ function _subscript_string(x::Integer)
     vc = collect(string(x))
     return join(c .+ SUBSCRIPT_OFFSET for c in vc)
 end
+
+"""
+    _paren_intstring(x::Integer) -> String
+
+Converts an `Integer` to a `String`, adding parentheses if there is more than 1 digit.
+"""
+function _paren_intstring(x::Integer)
+    s = string(x)
+    length(s) == 1 || length(s) == 2 && s[1] == '-' && return s
+    return '(' * s * ')'
+    
+end

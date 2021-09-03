@@ -80,7 +80,7 @@ function Axis(str::AbstractString)
 end
 
 function Base.string(ax::Axis)
-    r = string(ax.rotation)
+    r = _paren_intstring(ax.rotation)
     # Rotoinversions have no screw/glide components; return immediately
     ax.rotation < 0 && return r
     # If a pure reflection/glide, jut return glide component

@@ -10,7 +10,8 @@ Every `Axis` has three different parameters:
 `rotation`: the rotation order of the axis. For space groups, must be 1, 2, 3, 4, or 6 (per the 
 crystallographic restriction theorem).
 
-`screw`: The order of the screw axis. If 0, the operation is a normal rotation.
+`screw`: The order of the screw axis. If 0, the operation is a normal rotation. Must be less than
+the order of the rotation operation.
 
 `glide`: The type of glide or reflection operation. Can be a, b, c, d, e, g, m, or n.
 """

@@ -29,5 +29,6 @@ include("stringops.jl")
 include("axis.jl")
 # Defines the data type for Hermann-Mauguin symbols of arbitrary dimension
 include("hermann-mauguin.jl")
+export HermannMauguin, axis_orders, ispointgroup, isspacegroup, standardize, HM2_str, HM3_str
 
 end

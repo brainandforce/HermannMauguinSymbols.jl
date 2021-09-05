@@ -71,6 +71,11 @@ julia> axis_orders(HermannMauguin{3}("F 4_1/d -3 2/m"))
 """
 axis_orders(hm::HermannMauguin{N}) where N = order.(hm.axes)
 
+"""
+    _string_long(hm::HermannMauguin{3}) -> String
+
+Generates the long form of a 3D Hermann-Mauguin symbol as a `String`.
+"""
 function _string_long(hm::HermannMauguin{3})
     axis_strings = string.(hm.axes)
     # Strip extraneous rotations if not monoclinic or trigonal
@@ -82,6 +87,11 @@ function _string_long(hm::HermannMauguin{3})
     return _centering_prefix(hm) * join(axis_strings, ' ')
 end
 
+"""
+    _string_short(hm::HermannMauguin{3}) -> String
+
+Generates the short form of a 3D Hermann-Mauguin symbol as a `String`.
+"""
 function _string_short(hm::HermannMauguin{3})
     # Treat low-symmetry groups specially
     all(isequal(Axis(1)), hm.axes) && return hm.centering * "1"

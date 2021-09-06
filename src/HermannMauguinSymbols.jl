@@ -10,8 +10,8 @@ const GLIDES = ('\x00', 'a':'e'..., 'g', 'm', 'n')
 # Valid centering types in 3D
 const CENTERINGS = 
 (
-    ('p'),
-    ('c','p'),
+    ('\x00', 'p'),
+    ('\x00', 'c','p'),
     ('\x00', 'A':'C'..., 'F', 'H', 'I', 'P', 'R'),
 )
 

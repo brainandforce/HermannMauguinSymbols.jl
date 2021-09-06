@@ -87,7 +87,7 @@ function _string_long(hm::HermannMauguin{3})
     # Special handling for low symmetry groups (order 1 rotations only)
     if -1 in getproperty.(hm.axes, :rotation)
         return _centering_prefix(hm) * "-1"
-    elseif getproperty.(hm.axes, :rotation) = (1, 1, 1)
+    elseif getproperty.(hm.axes, :rotation) == (1, 1, 1)
         return _centering_prefix(hm) * "1"
     end
     return _centering_prefix(hm) * join(axis_strings, ' ')

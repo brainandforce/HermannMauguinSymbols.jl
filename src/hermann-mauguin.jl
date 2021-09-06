@@ -30,7 +30,7 @@ function HermannMauguin(ctr::AbstractChar, ax::Axis...)
 end
 
 """
-    HermannMauguin{N}("")
+    HermannMauguin{N}(str::AbstractString) -> HermannMauguin{N}
 
 Constructs a `HermannMauguin{N}` from a string containing a long Hermann-Mauguin symbol.
 """
@@ -46,6 +46,10 @@ function HermannMauguin{N}(str::AbstractString) where N
     end
     ax = Axis.(vcat(parts, ["1" for n = 1:(N - length(parts))]))
     return HermannMauguin{N}(ctr, Tuple(ax))
+end
+
+function HermannMauguin{2}(str::AbstractString)
+    
 end
 
 """
@@ -80,8 +84,12 @@ function _string_long(hm::HermannMauguin{3})
     if hm.centering != 'P' && axis_orders(hm) in ((3,1,2), (3,2,1))
         axis_strings = filter(!isequal("1"), axis_strings)
     end
-    # Fix for P 1
-    isempty(axis_strings) && (axis_strings = ["1"])
+    # Special handling for low symmetry groups (order 1 rotations only)
+    if -1 in getproperty.(hm.axes, :rotation)
+        return _centering_prefix(hm) * "-1"
+    elseif getproperty.(hm.axes, :rotation) = (1, 1, 1)
+        return _centering_prefix(hm) * "1"
+    end
     return _centering_prefix(hm) * join(axis_strings, ' ')
 end
 

@@ -27,14 +27,15 @@ struct Axis
         @assert r != 0 "Rotation order cannot be zero"
         # Screw axis order must be between 0 and r - 1
         # Set to 0 if negative
-        if r > 0
-            s = s % r
-        else
-            s = 0
-        end
+        r > 0 ? s = s % r : s = 0
         # Reflections/glides must be valid symbols
         g = lowercase(g)
         @assert g in GLIDES "Invalid reflection or glide operation: $g"
+        # Convert odd numbers / m (3/m, 5/m, etc.) to bar operations
+        if g == 'm' && isodd(r) && s == 0
+            g = '\x00'
+            r = -2 * r
+        end
         return new(r, s, g)
     end
 end

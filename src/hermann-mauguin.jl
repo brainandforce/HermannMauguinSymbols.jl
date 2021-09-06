@@ -79,16 +79,14 @@ axis_orders(hm::HermannMauguin{N}) where N = order.(hm.axes)
 Generates the long form of a 3D Hermann-Mauguin symbol as a `String`.
 """
 function _string_long(hm::HermannMauguin{3})
+    ao = axis_orders(hm)
+    # special treatment for low symmetry groups (triclinic)
+    ao == (1, 1, 1) && return _centering_prefix(hm) * 
+        "-"^(any(<(0), getproperty.(hm.axes, :rotation))) * "1"
     axis_strings = string.(hm.axes)
     # Strip extraneous rotations if not monoclinic or trigonal
-    if hm.centering != 'P' && axis_orders(hm) in ((3,1,2), (3,2,1))
+    if !ismonoclinic(hm) && !(ao in ((3, 1, 2), (3, 2, 1)) && hm.centering == 'P')
         axis_strings = filter(!isequal("1"), axis_strings)
-    end
-    # Special handling for low symmetry groups (order 1 rotations only)
-    if -1 in getproperty.(hm.axes, :rotation)
-        return _centering_prefix(hm) * "-1"
-    elseif getproperty.(hm.axes, :rotation) == (1, 1, 1)
-        return _centering_prefix(hm) * "1"
     end
     return _centering_prefix(hm) * join(axis_strings, ' ')
 end
@@ -124,7 +122,7 @@ function _string_short(hm::HermannMauguin{3})
     else
         axes = join(axis_strings)
     end
-    return (hm.centering)^(hm.centering != 0) * axes
+    return (hm.centering)^(hm.centering != '\x00') * axes
 end
 
 Base.string(hm::HermannMauguin{N}) where N = _string_long(hm)
@@ -211,3 +209,55 @@ Generates a 3-dimensional Hermann-Mauguin symbol from a string literal.
 macro HM3_str(s::AbstractString)
     HermannMauguin{3}(s)
 end
+
+"""
+    istriclinic(hm::HermannMauguin)
+
+Returns `true` is a space group is triclinic.
+"""
+istriclinic(hm::HermannMauguin) = all(isequal(1), axis_orders(hm))
+
+"""
+    ismonoclinic(hm::HermannMauguin)
+
+Returns `true` is a space group is monoclinic.
+"""
+function ismonoclinic(hm::HermannMauguin)
+    all(<=(2), axis_orders(hm)) && count(isequal(2), axis_orders(hm)) == 1
+end
+
+"""
+    isorthorhombic(hm::HermannMauguin)
+
+Returns `true` is a space group is orthorhombic.
+"""
+isorthorhombic(hm::HermannMauguin) = all(isequal(2), axis_orders(hm))
+
+"""
+    istetragonal(hm::HermannMauguin)
+
+Returns `true` is a space group is tetragonal.
+"""
+istetragonal(hm::HermannMauguin) = axis_orders(hm)[1] == 4 && !(3 in axis_orders(hm))
+istetragonal(hm::HermannMauguin{2}) = axis_orders(hm)[1] == 4
+
+"""
+    istrigonal(hm::HermannMauguin)
+
+Returns `true` is a space group is trigonal.
+"""
+istrigonal(hm::HermannMauguin) = axis_orders(hm)[1] == 3
+
+"""
+    ishexagonal(hm::HermannMauguin)
+
+Returns `true` is a space group is hexagonal.
+"""
+ishexagonal(hm::HermannMauguin) = 6 in axis_orders(hm)
+
+"""
+    iscubic(hm::HermannMauguin{3})
+
+Returns `true` is a space group is cubic.
+"""
+iscubic(hm::HermannMauguin{3}) = axis_orders(hm)[2] == 3

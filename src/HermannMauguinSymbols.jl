@@ -20,7 +20,7 @@ const SUBSCRIPT_OFFSET = 0x2050
 
 # Load in all the space group symbols
 const SPACE_GROUP_SYMBOLS =
-    Tuple(Tuple([ln[2] for ln in split.(readlines("data/sgdata-$(n)d"), 
+    Tuple(Tuple([string(ln[2]) for ln in split.(readlines("data/sgdata-$(n)d"), 
     '\t', keepempty=false)[2:end]]) for n = 1:MAXIMUM_DEFINED_DIMENSION)
 
 # Operations used when processing strings
@@ -29,6 +29,7 @@ include("stringops.jl")
 include("axis.jl")
 # Defines the data type for Hermann-Mauguin symbols of arbitrary dimension
 include("hermann-mauguin.jl")
-export HermannMauguin, axis_orders, ispointgroup, isspacegroup, standardize, HM2_str, HM3_str
+export  HermannMauguin, axis_orders, ispointgroup, isspacegroup, standardize, HM2_str, HM3_str,
+        istriclinic, ismonoclinic, isorthorhombic, istetragonal, istrigonal, ishexagonal, iscubic
 
 end

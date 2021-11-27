@@ -1,20 +1,19 @@
-# HermannMauguinSymbols.jl
+# SpaceGroupSymbols.jl
 
-A library for handling Hermann-Mauguin symbols for point and space groups up to
-3 dimensions.
+A Julia library for handling Hermann-Mauguin symbols for point and space groups up to 3 dimensions.
 
-This package is a new project from an inexperienced developer and all
-functionality is subject to change.
+This package is a new project from an inexperienced developer and all functionality is subject to 
+change.
 
 ## Functionality
 
-Hermann-Mauguin symbols are stored in the data type `HermannMauguin{N}` where N
-is the number of spatial dimensions.
+Hermann-Mauguin symbols are stored in the data type `HermannMauguin{N}` where N is the number of
+spatial dimensions.
 
-You can generate a `HermannMauguin{N}` from a string containing the long form
-of a Hermann-Mauguin symbol:
+You can generate a `HermannMauguin{N}` from a string containing the long form of a Hermann-Mauguin
+symbol:
 
-```julia
+```julia-repl
 julia> HermannMauguin{3}("F 4_1/d -3 2/m")
 Hermann-Mauguin symbol for a 3-dimensional space group
 Long form:      F 4₁/d -3 2/m
@@ -37,8 +36,7 @@ Short form:     I4₁/amd
 
 ```
 
-A string macro also exists to generate 2-dimensional and 3-dimensional 
-Hermann-Mauguin symbols:
+A string macro also exists to generate 2-dimensional and 3-dimensional Hermann-Mauguin symbols:
 
 ```julia
 julia> @HM3"P 1 2_1/c 1"
@@ -52,10 +50,8 @@ Short form:     P2₁/c
 
 Currently, 2-dimensional space group are not handled correctly at all.
 
-Sometimes, Hermann-Mauguin symbols contain extra information about the origin
-setting of the unit cell (for instance: F d -3 m Z). This information breaks
-the constructor.
+Sometimes, Hermann-Mauguin symbols contain extra information about the origin setting of the unit 
+cell (for instance: F d -3 m Z). This information breaks the constructor.
 
-Short forms of Hermann-Mauguin symbols are not supported when calling the 
-`Hermann-Mauguin{N}` constructor. This may be added in the future, but is a low
-priority addition.
+Short forms of Hermann-Mauguin symbols are not supported when calling the `Hermann-Mauguin{N}` 
+constructor. This may be added in the future, but is a low priority addition.

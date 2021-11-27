@@ -1,4 +1,4 @@
-module HermannMauguinSymbols
+module SpaceGroupSymbols
 
 # Once we get to 4D and higher space group, this will be updated
 const MAXIMUM_DEFINED_DIMENSION = 3

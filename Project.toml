@@ -1,4 +1,4 @@
-name = "HermannMauguinSymbols"
+name = "SpaceGroupSymbols"
 uuid = "2860e2f9-30ed-4d21-b059-6ece0c5ce77a"
 authors = ["Brandon Flores <bsflores@wisc.edu>"]
 version = "0.1.0"
